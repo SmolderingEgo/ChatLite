@@ -213,9 +213,12 @@ local function Rewrite(event, msg)
                 local caps = { msg:match(rule.pat) }
                 if not caps[1] and body then caps = { body:match(rule.pat) } end
                 if caps[1] then
-                    if rule.quiet and db.rollsQuiet then return nil end
-                    out = Fill(rule, caps)
-                    break
+                    local res = Fill(rule, caps)
+                    if res ~= false then
+                        if rule.quiet and db.rollsQuiet then return nil end
+                        out = res
+                        break
+                    end
                 end
             end
         end

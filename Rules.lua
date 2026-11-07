@@ -52,6 +52,17 @@ ns.RULE_DEFS = {
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_GREED", t = "{1} won {3} (Greed {2})", quiet = true },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_DE",    t = "{1} won {3} (Disenchant {2})", quiet = true },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON",              t = "{1} won {2}", quiet = true },
+    -- Roll starting: "[Loot]: [Item]". Must stay after every other roll rule, because
+    -- its pattern matches any "[Loot]: ..." line; f returns false unless the rest is
+    -- just an item link, so unknown lines are left alone.
+    { cat = "rolls", event = "CHAT_MSG_LOOT", fmt = "|HlootHistory:%d|h[Loot]|h: %s", quiet = true,
+      f = function(a)
+          local item = a[1] or ""
+          if item:match("^|c[^|]*|Hitem:.-|h|r$") or item:match("^|Hitem:.-|h$") then
+              return "Roll: " .. item
+          end
+          return false
+      end },
 
     -- Quest sharing replies
     { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ALREADY_DONE_S", t = "{1}: quest done" },
@@ -103,7 +114,7 @@ ns.RULE_DEFS = {
     { cat = "skill", event = "CHAT_MSG_SKILL", g = "SKILL_RANK_UP", t = "{1} {2}" },
 
     -- Friends and guildmates online / offline
-    { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_ONLINE_SS", t = "|Hplayer:{1}|h[{2}]|h online" },
+    { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_ONLINE_SS", t = "|Hplayer:{1}|h{2}|h online" },
     { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_OFFLINE_S", t = "{1} offline" },
 }
 
