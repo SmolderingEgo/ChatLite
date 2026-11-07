@@ -53,6 +53,7 @@ function ns.BuildOptions()
     Check(panel, "Loot rolls", "rolls", R, -162)
     Check(panel, "Quest sharing replies", "quests", L, -188)
     Check(panel, "Appearances collected", "collect", L, -214)
+    Check(panel, "First names only (in these lines)", "firstNames", R, -214)
     Check(panel, "Quiet rolls (hide other people's rolls)", "rollsQuiet", R, -188)
 
     Header(panel, "Look", -250)

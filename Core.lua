@@ -11,7 +11,7 @@ local ADDON, ns = ...
 ns.defaults = {
     -- built-in short lines
     loot = true, money = true, currency = true, xp = true, rep = true, skill = true, online = true,
-    rolls = true, quests = true, rollsQuiet = false, collect = true,
+    rolls = true, quests = true, rollsQuiet = false, collect = true, firstNames = true,
     -- look
     lootIcons = true, iconsEverywhere = false, iconSize = 0, names = true,
     -- your rules
@@ -186,7 +186,7 @@ local function CompileRules()
             local shift = fmt:find("^|HlootHistory:%%d") and 1 or 0
             byEvent[def.event] = byEvent[def.event] or {}
             table.insert(byEvent[def.event], { cat = def.cat, pat = pat, order = order, shift = shift,
-                t = def.t, f = def.f, quiet = def.quiet })
+                t = def.t, f = def.f, quiet = def.quiet, who = def.who })
         end
     end
 end
@@ -196,6 +196,16 @@ local function Fill(rule, caps)
     for k, v in ipairs(caps) do
         local idx = (rule.order[k] or k) - (rule.shift or 0)
         if idx >= 1 then args[idx] = v end
+    end
+    -- "First names only": shorten the player-name values of this rule
+    -- (Forever names are "First Last"). Never touches links or normal chat.
+    if db.firstNames and rule.who then
+        for _, i in ipairs(rule.who) do
+            local name = args[i]
+            if type(name) == "string" and not name:find("|", 1, true) then
+                args[i] = name:match("^(%S+)%s") or name
+            end
+        end
     end
     if rule.f then return rule.f(args) end
     return (rule.t:gsub("{(%d)}", function(n) return args[tonumber(n)] or "" end))

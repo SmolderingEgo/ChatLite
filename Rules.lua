@@ -19,10 +19,10 @@ ns.RULE_DEFS = {
     { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_CREATED_SELF_MULTIPLE",    t = "Crafted {1} x{2}" },
     { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_CREATED_SELF",             t = "Crafted {1}" },
     -- Loot: other people
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_MULTIPLE",                 t = "{1}: + {2} x{3}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM",                          t = "{1}: + {2}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED_MULTIPLE",          t = "{1}: + {2} x{3}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED",                   t = "{1}: + {2}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_MULTIPLE", who = {1},                 t = "{1}: + {2} x{3}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM", who = {1},                          t = "{1}: + {2}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED_MULTIPLE", who = {1},          t = "{1}: + {2} x{3}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED", who = {1},                   t = "{1}: + {2}" },
 
     -- Loot rolls. quiet = hidden when "Quiet rolls" is on.
     -- Specific versions first: "You won" before "%s won", auto-pass before pass.
@@ -32,26 +32,26 @@ ns.RULE_DEFS = {
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_TRANSMOG_SELF",    t = "Transmog: {1}" },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED_SELF_AUTO", t = "Pass (can't use): {1}" },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED_SELF",      t = "Pass: {1}" },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_NEED",             t = "{1}: Need", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_GREED",            t = "{1}: Greed", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_DISENCHANT",       t = "{1}: Disenchant", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_TRANSMOG",         t = "{1}: Transmog", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED_AUTO",      t = "{1}: Pass", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED_AUTO_FEMALE", t = "{1}: Pass", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED",           t = "{1}: Pass", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_NEED", who = {1},             t = "{1}: Need", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_GREED", who = {1},            t = "{1}: Greed", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_DISENCHANT", who = {1},       t = "{1}: Disenchant", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_TRANSMOG", who = {1},         t = "{1}: Transmog", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED_AUTO", who = {1},      t = "{1}: Pass", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED_AUTO_FEMALE", who = {1}, t = "{1}: Pass", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_PASSED", who = {1},           t = "{1}: Pass", quiet = true },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ALL_PASSED",       t = "All passed: {1}" },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_NEED",      t = "  {3}: Need {1}", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_GREED",     t = "  {3}: Greed {1}", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_DE",        t = "  {3}: Disenchant {1}", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_TRANSMOG",  t = "  {3}: Transmog {1}", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_NEED", who = {3},      t = "  {3}: Need {1}", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_GREED", who = {3},     t = "  {3}: Greed {1}", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_DE", who = {3},        t = "  {3}: Disenchant {1}", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_ROLLED_TRANSMOG", who = {3},  t = "  {3}: Transmog {1}", quiet = true },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_YOU_WON_NO_SPAM_NEED",  t = "You won {2} (Need {1})" },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_YOU_WON_NO_SPAM_GREED", t = "You won {2} (Greed {1})" },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_YOU_WON_NO_SPAM_DE",    t = "You won {2} (Disenchant {1})" },
     { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_YOU_WON",          t = "You won {1}" },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_NEED",  t = "{1} won {3} (Need {2})", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_GREED", t = "{1} won {3} (Greed {2})", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_DE",    t = "{1} won {3} (Disenchant {2})", quiet = true },
-    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON",              t = "{1} won {2}", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_NEED", who = {1},  t = "{1} won {3} (Need {2})", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_GREED", who = {1}, t = "{1} won {3} (Greed {2})", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON_NO_SPAM_DE", who = {1},    t = "{1} won {3} (Disenchant {2})", quiet = true },
+    { cat = "rolls", event = "CHAT_MSG_LOOT", g = "LOOT_ROLL_WON", who = {1},              t = "{1} won {2}", quiet = true },
     -- Roll starting: "[Loot]: [Item]". Must stay after every other roll rule, because
     -- its pattern matches any "[Loot]: ..." line; f returns false unless the rest is
     -- just an item link, so unknown lines are left alone.
@@ -65,14 +65,14 @@ ns.RULE_DEFS = {
       end },
 
     -- Quest sharing replies
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ALREADY_DONE_S", t = "{1}: quest done" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ONQUEST_S",      t = "{1}: has quest" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ACCEPTED_S",     t = "{1}: accepted" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_DECLINED_S",     t = "{1}: declined" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_BUSY_S",         t = "{1}: busy" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_LOG_FULL_S",     t = "{1}: quest log full" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_INVALID_S",      t = "{1}: can't take it" },
-    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_TOO_FAR_S",      t = "{1}: too far" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ALREADY_DONE_S", who = {1}, t = "{1}: quest done" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ONQUEST_S", who = {1},      t = "{1}: has quest" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_ACCEPTED_S", who = {1},     t = "{1}: accepted" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_DECLINED_S", who = {1},     t = "{1}: declined" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_BUSY_S", who = {1},         t = "{1}: busy" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_LOG_FULL_S", who = {1},     t = "{1}: quest log full" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_INVALID_S", who = {1},      t = "{1}: can't take it" },
+    { cat = "quests", event = "CHAT_MSG_SYSTEM", g = "ERR_QUEST_PUSH_TOO_FAR_S", who = {1},      t = "{1}: too far" },
 
     -- Collections. fmt = English fallback if this client has no such GlobalString.
     { cat = "collect", event = "CHAT_MSG_SYSTEM", g = "ERR_LEARN_TRANSMOG_S",
@@ -114,8 +114,8 @@ ns.RULE_DEFS = {
     { cat = "skill", event = "CHAT_MSG_SKILL", g = "SKILL_RANK_UP", t = "{1} {2}" },
 
     -- Friends and guildmates online / offline
-    { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_ONLINE_SS", t = "|Hplayer:{1}|h{2}|h online" },
-    { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_OFFLINE_S", t = "{1} offline" },
+    { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_ONLINE_SS", who = {2}, t = "|Hplayer:{1}|h{2}|h online" },
+    { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_OFFLINE_S", who = {1}, t = "{1} offline" },
 }
 
 -- Events where loot icons are added after the rewrite.
