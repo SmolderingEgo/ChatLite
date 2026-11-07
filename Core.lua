@@ -226,6 +226,8 @@ local function Rewrite(event, msg)
                     local res = Fill(rule, caps)
                     if res ~= false then
                         if rule.quiet and db.rollsQuiet then return nil end
+                        -- Lines that start with "+" get one leading space so they line up a bit indented.
+                        if res:sub(1, 1) == "+" then res = " " .. res end
                         out = res
                         break
                     end
