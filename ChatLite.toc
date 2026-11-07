@@ -1,0 +1,11 @@
+## Interface: 120105, 16001
+## Title: Chat Lite
+## Notes: Cleans up chat: short loot, money and system lines, your own find => replace rules, item icons.
+## Author: Derick
+## Version: @project-version@
+## SavedVariables: ChatLiteDB
+## IconTexture: 2056011
+
+Core.lua
+Rules.lua
+Options.lua

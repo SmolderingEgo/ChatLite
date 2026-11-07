@@ -1,0 +1,56 @@
+name: Package and release
+
+# Runs when VERSION (or this workflow) changes on main, or by hand from the Actions tab.
+# If release v<VERSION> doesn't exist yet, it builds ChatLite-v<VERSION>.zip plus the
+# release.json that WowUp reads, and publishes them as a GitHub release.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - VERSION
+      - .github/workflows/release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check version
+        id: ver
+        run: |
+          v="v$(tr -d '[:space:]' < VERSION)"
+          echo "tag=$v" >> "$GITHUB_OUTPUT"
+          if gh release view "$v" >/dev/null 2>&1; then
+            echo "Release $v already exists, nothing to do."
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build zip and release.json
+        if: steps.ver.outputs.new == 'true'
+        run: |
+          v="${{ steps.ver.outputs.tag }}"
+          mkdir -p dist/ChatLite
+          cp Core.lua Rules.lua Options.lua README.md dist/ChatLite/
+          sed "s/@project-version@/$v/" ChatLite.toc > dist/ChatLite/ChatLite.toc
+          (cd dist && zip -rq "ChatLite-$v.zip" ChatLite)
+          iface=$(grep '^## Interface:' ChatLite.toc | sed 's/^## Interface: *//; s/,.*//')
+          printf '{"releases":[{"name":"ChatLite","version":"%s","filename":"ChatLite-%s.zip","nolib":false,"metadata":[{"flavor":"mainline","interface":%s}]}]}\n' "$v" "$v" "$iface" > dist/release.json
+          cat dist/release.json
+          unzip -l "dist/ChatLite-$v.zip"
+
+      - name: Publish release
+        if: steps.ver.outputs.new == 'true'
+        run: |
+          v="${{ steps.ver.outputs.tag }}"
+          gh release create "$v" "dist/ChatLite-$v.zip" dist/release.json \
+            --target "$GITHUB_SHA" --title "$v" --generate-notes
