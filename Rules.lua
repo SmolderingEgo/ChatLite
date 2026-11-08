@@ -14,15 +14,25 @@ ns.RULE_DEFS = {
     { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_SELF",                     t = "+ {1}" },
     { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED_SELF_MULTIPLE",     t = "+ {1} x{2}" },
     { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED_SELF",              t = "+ {1}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_BONUS_ROLL_SELF_MULTIPLE", t = "+ {1} x{2} (bonus roll)" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_BONUS_ROLL_SELF",          t = "+ {1} (bonus roll)" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_CREATED_SELF_MULTIPLE",    t = "Crafted {1} x{2}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_CREATED_SELF",             t = "Crafted {1}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_BONUS_ROLL_SELF_MULTIPLE", t = "+ {1} x{2} (bonus)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_BONUS_ROLL_SELF",          t = "+ {1} (bonus)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_CREATED_SELF_MULTIPLE",    t = "+ {1} x{2} (craft)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_CREATED_SELF",             t = "+ {1} (craft)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_REFUND_MULTIPLE",          t = "+ {1} x{2} (refund)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_REFUND",                   t = "+ {1} (refund)" },
+    { cat = "loot", event = "CHAT_MSG_TRADESKILLS", g = "TRADESKILL_LOG_FIRSTPERSON",  t = "+ {1} (craft)" },
     -- Loot: other people
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_MULTIPLE", who = {1},                 t = "{1}: + {2} x{3}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM", who = {1},                          t = "{1}: + {2}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED_MULTIPLE", who = {1},          t = "{1}: + {2} x{3}" },
-    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED", who = {1},                   t = "{1}: + {2}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_MULTIPLE", who = {1},                 t = "+ {1} : {2} x{3}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM", who = {1},                          t = "+ {1} : {2}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED_MULTIPLE", who = {1},          t = "+ {1} : {2} x{3}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_PUSHED", who = {1},                   t = "+ {1} : {2}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_BONUS_ROLL_MULTIPLE", who = {1},      t = "+ {1} : {2} x{3} (bonus)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_BONUS_ROLL", who = {1},               t = "+ {1} : {2} (bonus)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_ITEM_WHILE_PLAYER_INELIGIBLE", who = {1},  t = "+ {1} : {2}" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "CREATED_ITEM_MULTIPLE", who = {1},              t = "+ {1} : {2} x{3} (craft)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "CREATED_ITEM", who = {1},                       t = "+ {1} : {2} (craft)" },
+    { cat = "loot", event = "CHAT_MSG_TRADESKILLS", g = "TRADESKILL_LOG_THIRDPERSON", who = {1},  t = "+ {1} : {2} (craft)" },
+    { cat = "loot", event = "CHAT_MSG_LOOT", g = "LOOT_DISENCHANT_CREDIT", who = {2},             t = "- {1} (disenchanted by {2})" },
 
     -- Loot rolls. quiet = hidden when "Quiet rolls" is on.
     -- Specific versions first: "You won" before "%s won", auto-pass before pass.
@@ -80,11 +90,11 @@ ns.RULE_DEFS = {
 
     -- Money (guild-bank versions first: the plain ones would match them too)
     { cat = "money", event = "CHAT_MSG_MONEY", g = "YOU_LOOT_MONEY_GUILD",
-      f = function(a) return "+ " .. Money(a[1]) .. " (" .. Money(a[2]) .. " to guild bank)" end },
+      f = function(a) return "+ " .. Money(a[1]) .. " (" .. Money(a[2]) .. " guild)" end },
     { cat = "money", event = "CHAT_MSG_MONEY", g = "YOU_LOOT_MONEY",
       f = function(a) return "+ " .. Money(a[1]) end },
     { cat = "money", event = "CHAT_MSG_MONEY", g = "LOOT_MONEY_SPLIT_GUILD",
-      f = function(a) return "+ " .. Money(a[1]) .. " share (" .. Money(a[2]) .. " to guild bank)" end },
+      f = function(a) return "+ " .. Money(a[1]) .. " share (" .. Money(a[2]) .. " guild)" end },
     { cat = "money", event = "CHAT_MSG_MONEY", g = "LOOT_MONEY_SPLIT",
       f = function(a) return "+ " .. Money(a[1]) .. " share" end },
     -- "You gained: 68s 89c" (quest/vendor money). Unsure which event sends it, so watch both.
@@ -96,22 +106,43 @@ ns.RULE_DEFS = {
     { cat = "currency", event = "CHAT_MSG_CURRENCY", g = "CURRENCY_GAINED_MULTIPLE_BONUS", t = "+ {1} x{2} (bonus)" },
     { cat = "currency", event = "CHAT_MSG_CURRENCY", g = "CURRENCY_GAINED_MULTIPLE",       t = "+ {1} x{2}" },
     { cat = "currency", event = "CHAT_MSG_CURRENCY", g = "CURRENCY_GAINED",                t = "+ {1}" },
+    { cat = "currency", event = "CHAT_MSG_CURRENCY", g = "LOOT_CURRENCY_REFUND",           t = "+ {1} x{2} (refund)" },
+    { cat = "currency", event = "CHAT_MSG_CURRENCY", g = "CURRENCY_LOST_FROM_DEATH",       t = "- {1} x{2}" },
 
-    -- Experience
-    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION1",          t = "+{2} XP ({1}, {3} {4})" },
-    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_FIRSTPERSON",          t = "+{2} XP ({1})" },
-    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED",  t = "+{1} XP" },
-    { cat = "xp", event = "CHAT_MSG_SYSTEM",         g = "ERR_QUEST_REWARD_EXP_I",                t = "+{1} XP (quest)" },
+    -- Experience: "Hogger : +120 xp". Group/raid/rested versions before the plain ones.
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION1_GROUP", t = "{1} : +{2} xp ({3} {4}, +{5} group)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION1_RAID",  t = "{1} : +{2} xp ({3} {4}, -{5} raid)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION1",       t = "{1} : +{2} xp ({3} {4})" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION2_GROUP", t = "{1} : +{2} xp ({3} {4}, +{5} group)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION2_RAID",  t = "{1} : +{2} xp ({3} {4}, -{5} raid)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION2",       t = "{1} : +{2} xp ({3} {4})" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION4_GROUP", t = "{1} : +{2} xp ({3} {4}, +{5} group)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION4_RAID",  t = "{1} : +{2} xp ({3} {4}, -{5} raid)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION4",       t = "{1} : +{2} xp ({3} {4})" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION5_GROUP", t = "{1} : +{2} xp ({3} {4}, +{5} group)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION5_RAID",  t = "{1} : +{2} xp ({3} {4}, -{5} raid)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_EXHAUSTION5",       t = "{1} : +{2} xp ({3} {4})" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_FIRSTPERSON_GROUP",    t = "{1} : +{2} xp (+{3} group)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_FIRSTPERSON_RAID",     t = "{1} : +{2} xp (-{3} raid)" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_FIRSTPERSON",          t = "{1} : +{2} xp" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_QUEST",                t = "+{1} xp ({2} {3})" },
+    { cat = "xp", event = "CHAT_MSG_COMBAT_XP_GAIN", g = "COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED",  t = "+{1} xp" },
+    { cat = "xp", event = "CHAT_MSG_SYSTEM",         g = "ERR_QUEST_REWARD_EXP_I",                t = "+{1} xp (quest)" },
 
-    -- Reputation
-    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED_ACH_BONUS", t = "+{2} {1} (+{3} bonus)" },
-    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED",           t = "+{2} {1}" },
-    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_DECREASED",           t = "-{2} {1}" },
-    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED_GENERIC",   t = "+ {1}" },
-    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_DECREASED_GENERIC",   t = "- {1}" },
+    -- Reputation: "Stormwind + 250". Bonus versions before the plain ones.
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED_DOUBLE_BONUS", t = "{1} + {2} (+{3} + {4} bonus)" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED_ACH_BONUS",    t = "{1} + {2} (+{3} bonus)" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED_BONUS",        t = "{1} + {2} (+{3} bonus)" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED",              t = "{1} + {2}" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_DECREASED",              t = "{1} - {2}" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_INCREASED_GENERIC",      t = "{1} +" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_DECREASED_GENERIC",      t = "{1} -" },
+    -- "You are now Friendly with Stormwind." -> "Stormwind : Friendly"
+    { cat = "rep", event = "CHAT_MSG_SYSTEM", g = "FACTION_STANDING_CHANGED", t = "{2} : {1}" },
+    { cat = "rep", event = "CHAT_MSG_COMBAT_FACTION_CHANGE", g = "FACTION_STANDING_CHANGED", t = "{2} : {1}" },
 
-    -- Skill-ups
-    { cat = "skill", event = "CHAT_MSG_SKILL", g = "SKILL_RANK_UP", t = "{1} {2}" },
+    -- Skill-ups: "Herbalism = 152"
+    { cat = "skill", event = "CHAT_MSG_SKILL", g = "SKILL_RANK_UP", t = "{1} = {2}" },
 
     -- Friends and guildmates online / offline
     { cat = "online", event = "CHAT_MSG_SYSTEM", g = "ERR_FRIEND_ONLINE_SS", who = {2}, t = "|Hplayer:{1}|h{2}|h online" },
@@ -119,4 +150,4 @@ ns.RULE_DEFS = {
 }
 
 -- Events where loot icons are added after the rewrite.
-ns.ICON_EVENTS = { CHAT_MSG_LOOT = true, CHAT_MSG_CURRENCY = true }
+ns.ICON_EVENTS = { CHAT_MSG_LOOT = true, CHAT_MSG_CURRENCY = true, CHAT_MSG_TRADESKILLS = true }

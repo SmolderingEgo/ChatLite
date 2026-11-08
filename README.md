@@ -6,22 +6,26 @@ A light World of Warcraft chat cleanup addon for WoW Forever and retail (Midnigh
 
 **Short lines** (each can be turned off):
 
+Styled after the old Better Loot Message addon (original code, same idea).
+
 | Before | After |
 |---|---|
-| You receive loot: [Linen Cloth]x3. | + 🧵[Linen Cloth] x3 |
-| Bob receives loot: [Copper Ore]. | Bob: + ⛏️[Copper Ore] |
-| You loot 5 Gold, 20 Silver, 3 Copper | + 5🟡 20⚪ 3🟤 |
+| You receive loot: [Linen Cloth]x3. | + [Linen Cloth] x3 |
+| Kraxxas Ragathiel receives loot: [Copper Ore]. | + Kraxxas : [Copper Ore] |
+| Kraxxas Ragathiel creates: [Linen Bag]. | + Kraxxas : [Linen Bag] (craft) |
+| You loot 5 Gold, 20 Silver | + 5g 20s (coin icons) |
 | You receive currency: [Valorstones] x10. | + [Valorstones] x10 |
-| Hogger dies, you gain 120 experience. | +120 XP (Hogger) |
-| Your Stormwind reputation has increased by 250. | +250 Stormwind |
-| Your skill in Herbalism has increased to 152. | Herbalism 152 |
-| [Bob] has come online. | Bob online |
-| You have selected Greed for: [Axe] | Greed: [Axe] |
-| Greed Roll - 95 for [Axe] by Kylora | Kylora: Greed 95 |
-| Kylora won: [Axe] | Kylora won [Axe] |
-| Shiro has completed that quest. | Shiro: quest done |
+| Hogger dies, you gain 120 experience. | Hogger : +120 xp |
+| Your Stormwind reputation has increased by 250. | Stormwind + 250 |
+| You are now Friendly with Stormwind. | Stormwind : Friendly |
+| Your skill in Herbalism has increased to 152. | Herbalism = 152 |
 | [Fine Leather Pants] has been added to your appearance collection. | + [Fine Leather Pants] (appearance) |
-| You gained: 68s 89c | + 68s 89c |
+| You have selected Greed for: [Axe] | Greed: [Axe] |
+| Greed Roll - 95 for [Axe] by Kylora Owlsong | Kylora: Greed 95 [Axe] |
+| Shiro White has completed that quest. | Shiro: quest done |
+| [Bob] has come online. | Bob online |
+
+Player names in these lines are first names only (Forever names are "First Last"); switch it off in `/cl`. Normal chat is never shortened.
 
 **Quiet rolls** hides everyone else's rolls and the "won" line, so a drop is just your choice and who got it.
 
